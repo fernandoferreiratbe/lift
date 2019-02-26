@@ -56,7 +56,7 @@
               <manifest>
                 <addClasspath>true</addClasspath>
                 <classpathPrefix>lib/</classpathPrefix>
-                <mainClass>io.github.fernandoferreiratbe.App</mainClass>
+                <mainClass>io.github.fernandoferreiratbe.view.App</mainClass>
               </manifest>
             </archive>
           </configuration>
