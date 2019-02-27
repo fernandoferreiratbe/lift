@@ -6,7 +6,7 @@ import org.junit.Test;
 public class LiftFactoryTest {
 
     @Test
-    public void CallCorrectMethod_FactoryCreateLift_ResultIsOK() {
+    public void CallGetLiftMethod_FactoryCreateLift_ResultIsOk() {
         // Arrange
         Lift lift;
 
