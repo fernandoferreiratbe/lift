@@ -1,4 +1,4 @@
-package io.github.fernandoferreiratbe;
+package io.github.fernandoferreiratbe.view;
 
 import static org.junit.Assert.assertTrue;
 

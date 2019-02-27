@@ -27,16 +27,32 @@ public class App {
 
         building.callLift(liftType, LiftDirection.UP);
 
-        System.out.println("** Which floor would you like to go? **");
-        Integer floorNumber = scanner.nextInt();
+        do {
+            System.out.println("** Which floor would you like to go? **");
+            Integer floorNumber = scanner.nextInt();
 
-        System.out.println("** How many people are going to this floor? **");
-        Integer people = scanner.nextInt();
+            System.out.println("** How many people are going to this floor? **");
+            Integer people = scanner.nextInt();
 
-        building.setFloorToGo(floorNumber, people);
+            building.setFloorToGo(floorNumber, people);
+        } while (App.isThereAnyoneElse(scanner));
 
         building.go();
 
         System.out.println("Finished main method.");
+    }
+
+    private static boolean isThereAnyoneElse(Scanner scanner) {
+        String response;
+
+        do {
+            System.out.println("** Is there anyone else to go? **");
+            System.out.println("** Y [Yes] or N [No]**");
+
+            response = scanner.next();
+
+        } while (!response.toUpperCase().equals("Y") && !response.toUpperCase().equals("N"));
+
+        return response.toUpperCase().equals("Y");
     }
 }
