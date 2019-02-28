@@ -1,9 +1,6 @@
 package io.github.fernandoferreiratbe.model;
 
-import io.github.fernandoferreiratbe.controller.Building;
-import io.github.fernandoferreiratbe.controller.BuildingRuntimeException;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 
 public class LiftTest {
@@ -36,14 +33,13 @@ public class LiftTest {
             lift.isReadyToGo();
 
         } catch (IllegalLiftStateException exception) {
-
             // Assert
             Assert.assertEquals("There is no floor to visit.", exception.getMessage());
         }
     }
 
     @Test
-    public void GivenLift_TheDoorIsOpen_ResultIsNotOk() {
+    public void GivenLift_TheDoorIsOpen_ThrowsException() {
         try {
             // Arrange
             ILift lift = new LiftFactory().getLift(LiftType.SOCIAL);
@@ -55,7 +51,6 @@ public class LiftTest {
             lift.isReadyToGo();
 
         } catch (IllegalLiftStateException exception) {
-
             // Assert
             Assert.assertEquals("Lift door is open", exception.getMessage());
         }
