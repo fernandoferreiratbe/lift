@@ -1,5 +1,8 @@
 package io.github.fernandoferreiratbe.model;
 
+import io.github.fernandoferreiratbe.controller.Building;
+import io.github.fernandoferreiratbe.controller.BuildingRuntimeException;
+import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
 
@@ -12,13 +15,70 @@ public class LiftTest {
         LiftState liftState;
 
         // Action
-        lift = LiftFactory.getLift();
+        lift = new LiftFactory().getLift(LiftType.SOCIAL);
         liftState = lift.getState();
 
         // Assert
-        Assume.assumeTrue(liftState.getDoorState().equals(DoorState.OPEN));
-        Assume.assumeTrue(liftState.getCurrentFloor().getFloor() == 0);
-        Assume.assumeTrue(liftState.getPeopleOnTheLift() == 0);
-        Assume.assumeTrue(!liftState.isTheLiftInMovement());
+        Assert.assertTrue(liftState.getDoorState().equals(DoorState.OPEN));
+        Assert.assertTrue(liftState.getCurrentFloor().getFloor() == 0);
+        Assert.assertTrue(liftState.getPeopleOnTheLift() == 0);
+        Assert.assertTrue(!liftState.isTheLiftInMovement());
     }
+
+    @Test
+    public void GivenLift_LiftHasNoFloorToGo_ThrowsException() {
+        try {
+            // Arrange
+            ILift lift = new LiftFactory().getLift(LiftType.SOCIAL);
+
+            // Action
+            lift.closeTheDoor();
+            lift.isReadyToGo();
+
+        } catch (IllegalLiftStateException exception) {
+
+            // Assert
+            Assert.assertEquals("There is no floor to visit.", exception.getMessage());
+        }
+    }
+
+    @Test
+    public void GivenLift_TheDoorIsOpen_ResultIsNotOk() {
+        try {
+            // Arrange
+            ILift lift = new LiftFactory().getLift(LiftType.SOCIAL);
+            Floor floor = new Floor(1, 2);
+
+            // Action
+            lift.setDirection(LiftDirection.UP);
+            lift.setFloorToGo(floor);
+            lift.isReadyToGo();
+
+        } catch (IllegalLiftStateException exception) {
+
+            // Assert
+            Assert.assertEquals("Lift door is open", exception.getMessage());
+        }
+    }
+
+    @Test
+    public void GivenLift_LiftHasAllParametersDefined_ResultIsOk() {
+        try {
+            // Arrange
+            ILift lift = new LiftFactory().getLift(LiftType.SOCIAL);
+            Floor floor = new Floor(1, 2);
+
+            // Action
+            lift.setDirection(LiftDirection.UP);
+            lift.setFloorToGo(floor);
+            lift.closeTheDoor();
+
+            // Assert
+            Assert.assertTrue(lift.isReadyToGo());
+        } catch (IllegalLiftStateException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // TODO Se o elevador for invocado para ir para baixo, mesmo estando no terreo lance excecao
 }
