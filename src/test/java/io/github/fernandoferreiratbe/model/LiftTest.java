@@ -1,5 +1,8 @@
 package io.github.fernandoferreiratbe.model;
 
+import io.github.fernandoferreiratbe.controller.Building;
+import io.github.fernandoferreiratbe.controller.BuildingRuntimeException;
+import io.github.fernandoferreiratbe.controller.IllegalBuildingOperationException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -49,10 +52,11 @@ public class LiftTest {
             lift.setDirection(LiftDirection.UP);
             lift.setFloorToGo(floor);
             lift.isReadyToGo();
-
         } catch (IllegalLiftStateException exception) {
             // Assert
             Assert.assertEquals("Lift door is open", exception.getMessage());
+        } catch (IllegalLiftOperationException e) {
+            e.printStackTrace();
         }
     }
 
@@ -70,10 +74,10 @@ public class LiftTest {
 
             // Assert
             Assert.assertTrue(lift.isReadyToGo());
-        } catch (IllegalLiftStateException e) {
+        } catch (IllegalLiftStateException | IllegalLiftOperationException e) {
             e.printStackTrace();
         }
     }
 
-    // TODO Se o elevador for invocado para ir para baixo, mesmo estando no terreo lance excecao
+    // TODO Checar se é necessário criar teste para validar pessoas e pisos negativos?
 }

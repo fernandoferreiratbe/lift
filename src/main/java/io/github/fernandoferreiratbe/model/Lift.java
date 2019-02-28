@@ -1,112 +1,77 @@
 package io.github.fernandoferreiratbe.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Lift {
-
-    private LiftType type;
-    private List<Floor> floors = new ArrayList<>();
+public abstract class Lift implements ILift {
+    private List<Floor> floorsToGo = new ArrayList<>();
+    private LiftState liftState;
     private LiftDirection direction;
-    private DoorState doorState;
-    private int peopleOnLift;
-    private boolean isTheLiftInMovment;
+    private List<Floor> buildingFloors;
 
     public Lift() {
-        this.doorState = DoorState.OPEN;
-        this.peopleOnLift = 0;
-        this.isTheLiftInMovment = false;
+        int GROUND_FLOOR = 0;
+        int INITIAL_PEOPLE_QUATITY = 0;
+        boolean INITIAL_MOVEMENT_STATE = false;
 
-        this.fillFloor();
-
-        // this.setFloorToGo(new Floor(0, 0));
+        this.liftState = new LiftState(
+                new Floor(GROUND_FLOOR, INITIAL_PEOPLE_QUATITY),
+                DoorState.OPEN,
+                INITIAL_MOVEMENT_STATE
+        );
     }
 
-    public LiftDirection getCurrentDirection() {
-        return this.direction;
-    }
-
-    public void setType(LiftType type) {
-        this.type = type;
-    }
-
-    public void setFloorToGo(int floor, int people) {
-
-        if (this.type.equals(LiftType.SOCIAL) && this.getHowManyPeopleThereAreOnLift() > 8
-                || this.type.equals(LiftType.FREIGHT) && this.getCurrantFreightWeight() > 1200) {
-            throw new IllegalArgumentException("Maximum weight achieved.");
+    public void setDirection(LiftDirection direction) throws IllegalLiftOperationException {
+        if (this.getState().getCurrentFloor().getFloor() == 0 && direction.equals(LiftDirection.DOWN)) {
+            throw new IllegalLiftOperationException("Lift is already on Ground floor.");
         }
-
-        this.floors.get(floor).setPeople(people);
-    }
-
-    public void go() throws Exception {
-        try {
-            if (this.doorState.equals(DoorState.OPEN)) {
-
-                System.out.println("Closing the door...");
-                this.doorState = DoorState.CLOSED;
-
-                Thread.sleep(3000);
-
-                System.out.println("Door is closed.");
-
-                Thread.sleep(1000);
-
-                if (this.direction.equals(LiftDirection.UP)) {
-
-                    System.out.println("Lift is up...");
-                    this.isTheLiftInMovment = true;
-                    System.out.println("Lift is in movement");
-                    Thread.sleep(2000);
-
-                    for (int i = 0; i < this.floors.size(); i++) {
-                        System.out.println("[ F " + i + " ]");
-
-                        if (this.floors.get(i).getFloor() == i && this.floors.get(i).getHowManyPeople() > 0) {
-                            this.isTheLiftInMovment = false;
-                            System.out.println("Lift is Stopping");
-                            Thread.sleep(2000);
-
-                            System.out.println("Open The Door...");
-                            Thread.sleep(2000);
-                            System.out.println("Please get out");
-                            this.setFloorStatus(this.floors.get(i));
-                            Thread.sleep(2000);
-                        }
-                    }
-                } else {
-                    System.out.println("Lift is down...");
-                }
-                Thread.sleep(3000);
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-    private void setFloorStatus(Floor floor) {
-        this.floors.get(floor.getFloor()).setState(FloorState.NOT_VISITED);
-    }
-
-    public void setDirection(LiftDirection direction) {
         this.direction = direction;
     }
 
-    private int getHowManyPeopleThereAreOnLift() {
-        return this.floors.stream().mapToInt(Floor::getHowManyPeople).sum();
+    public LiftState getState() {
+        return this.liftState;
     }
 
-    private int getCurrantFreightWeight() {
-        return 0;
+    public void setBuildingFloors(List<Floor> buildingFloors) {
+        this.buildingFloors = buildingFloors;
     }
 
-    private boolean isOkForSocialLift() {
-        return this.getHowManyPeopleThereAreOnLift() < 9;
+    @Override
+    public void closeTheDoor() {
+        this.liftState.setDoorState(DoorState.CLOSED);
     }
 
-    private void fillFloor() {
-        for (int i = 0; i < 31; i++) {
-            this.floors.add(new Floor(i));
+    @Override
+    public void setFloorToGo(Floor floor) throws IllegalLiftStateException {
+        this.floorsToGo.add(floor);
+        this.liftState.setPeopleOnTheLift(this.countPeopleOnTheLift());
+
+        Collections.sort(this.floorsToGo);
+    }
+
+    @Override
+    public List<Floor> getFloorsToGo() {
+        return Collections.unmodifiableList(this.floorsToGo);
+    }
+
+    @Override
+    public boolean isReadyToGo() throws IllegalLiftStateException {
+        if (!this.getState().getDoorState().equals(DoorState.CLOSED)) {
+            throw new IllegalLiftStateException("Lift door is open");
         }
+
+        if (this.getFloorsToGo().size() < 1) {
+            throw new IllegalLiftStateException("There is no floor to visit.");
+        }
+
+        return true;
+    }
+
+    private int countPeopleOnTheLift() {
+        return this.floorsToGo
+                .stream()
+                .mapToInt(Floor::getPeopleOnThisFloor)
+                .sum();
     }
 }

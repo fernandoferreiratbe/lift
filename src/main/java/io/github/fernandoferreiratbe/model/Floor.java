@@ -2,33 +2,23 @@ package io.github.fernandoferreiratbe.model;
 
 public class Floor implements Comparable<Floor> {
     private int floor;
-    private FloorState isThisFloorVisited;
-    private int howManyPeople;
+    private int peopleOnThisFloor;
 
     public Floor(int floor) {
         this.floor = floor;
-        this.isThisFloorVisited = FloorState.NOT_VISITED;
     }
 
-    public Floor(int floor, int howManyPeople) {
+    public Floor(int floor, int peopleOnThisFloor) {
         this.floor = floor;
-        this.howManyPeople = howManyPeople;
+        this.peopleOnThisFloor = peopleOnThisFloor;
     }
 
     public int getFloor() {
         return this.floor;
     }
 
-    public void setState(FloorState isThisFloorVisited) {
-        this.isThisFloorVisited = isThisFloorVisited;
-    }
-
-    public FloorState isVisited() {
-        return this.isThisFloorVisited;
-    }
-
-    public int getHowManyPeople() {
-        return this.howManyPeople;
+    public int getPeopleOnThisFloor() {
+        return this.peopleOnThisFloor;
     }
 
     @Override

@@ -11,7 +11,7 @@ public class LiftFactoryTest {
         Lift lift;
 
         // Action
-        lift = LiftFactory.getLift();
+        lift = new LiftFactory().getLift(LiftType.SOCIAL);
 
         // Assert
         Assume.assumeNotNull(lift);
