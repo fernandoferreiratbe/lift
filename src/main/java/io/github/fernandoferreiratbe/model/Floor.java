@@ -1,10 +1,9 @@
 package io.github.fernandoferreiratbe.model;
 
-public class Floor {
+public class Floor implements Comparable<Floor> {
     private int floor;
     private FloorState isThisFloorVisited;
     private int howManyPeople;
-    private int people;
 
     public Floor(int floor) {
         this.floor = floor;
@@ -32,7 +31,23 @@ public class Floor {
         return this.howManyPeople;
     }
 
-    public void setPeople(int people) {
-        this.howManyPeople += people;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Floor floor = (Floor) o;
+
+        return this.getFloor() == floor.getFloor();
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getFloor();
+    }
+
+    @Override
+    public int compareTo(Floor floor) {
+        return this.floor - floor.getFloor();
     }
 }
