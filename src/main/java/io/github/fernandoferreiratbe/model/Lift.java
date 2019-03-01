@@ -33,6 +33,10 @@ public abstract class Lift implements ILift {
         return this.liftState;
     }
 
+    public List<Floor> getBuildingFloors() {
+        return this.buildingFloors;
+    }
+
     public void setBuildingFloors(List<Floor> buildingFloors) {
         this.buildingFloors = buildingFloors;
     }
