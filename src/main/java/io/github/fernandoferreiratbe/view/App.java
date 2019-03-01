@@ -21,6 +21,7 @@ public class App {
         System.out.println("** Choose the lift:                   **");
         System.out.println("** 1 - For Social Lift                **");
         System.out.println("** 2 - For Freight Lift               **");
+
         try {
             do {
                 option = scanner.nextInt();
@@ -57,11 +58,12 @@ public class App {
             } while (App.isThereAnyoneElse(scanner));
 
             building.go();
-        } catch (BuildingRuntimeException | IllegalBuildingOperationException e) {
-            e.printStackTrace();
-        }
 
-        System.out.println("Lift is on the Ground Floor.");
+            System.out.println("Lift is on the Ground Floor.");
+        } catch (IllegalBuildingOperationException e) {
+            System.out.println("Occurs the following problem:  " + e.getMessage());
+            System.out.println("So sorry for that. Please, call lift again.");
+        }
     }
 
     private static boolean isThereAnyoneElse(Scanner scanner) {
