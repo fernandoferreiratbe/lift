@@ -48,7 +48,17 @@ public abstract class Lift implements ILift {
 
     @Override
     public void setFloorToGo(Floor floor) throws IllegalLiftStateException {
-        this.floorsToGo.add(floor);
+        if (this.floorsToGo.contains(floor)) {
+            for(Floor f : this.floorsToGo) {
+                if (f.getFloor() == floor.getFloor()) {
+                    f.addPeopleToStopOnThisFloor(floor.getPeopleOnThisFloor());
+                    break;
+                }
+            }
+        } else {
+            this.floorsToGo.add(floor);
+        }
+
         this.liftState.setPeopleOnTheLift(this.countPeopleOnTheLift());
 
         Collections.sort(this.floorsToGo);

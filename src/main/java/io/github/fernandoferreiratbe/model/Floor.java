@@ -40,4 +40,8 @@ public class Floor implements Comparable<Floor> {
     public int compareTo(Floor floor) {
         return this.floor - floor.getFloor();
     }
+
+    public void addPeopleToStopOnThisFloor(int peopleOnThisFloor) {
+        this.peopleOnThisFloor += peopleOnThisFloor;
+    }
 }
