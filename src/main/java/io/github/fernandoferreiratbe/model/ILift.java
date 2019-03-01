@@ -19,4 +19,6 @@ public interface ILift {
     boolean isReadyToGo() throws IllegalLiftStateException;
 
     void closeTheDoor();
+
+    void openTheDoor();
 }
