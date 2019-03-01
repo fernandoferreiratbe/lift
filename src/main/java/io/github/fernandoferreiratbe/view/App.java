@@ -61,7 +61,7 @@ public class App {
             e.printStackTrace();
         }
 
-        System.out.println("Finished main method.");
+        System.out.println("Lift is on the Ground Floor.");
     }
 
     private static boolean isThereAnyoneElse(Scanner scanner) {
