@@ -55,6 +55,10 @@ public class App {
                 } while (people < 1);
 
                 building.setFloorToGo(floorNumber, people);
+
+                if (liftType.equals(LiftType.FREIGHT)) {
+                    break;
+                }
             } while (App.isThereAnyoneElse(scanner));
 
             building.go();

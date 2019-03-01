@@ -1,7 +1,6 @@
 package io.github.fernandoferreiratbe.controller;
 
 import io.github.fernandoferreiratbe.model.*;
-import io.github.fernandoferreiratbe.view.App;
 
 import java.util.ArrayList;
 import java.util.List;

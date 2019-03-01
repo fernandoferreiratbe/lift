@@ -27,4 +27,8 @@ public interface ILift {
     void setLiftMovementAs(LiftMovementStatus liftMovement);
 
     LiftMovementStatus getLiftMovementStatus();
+
+    void setType(LiftType liftType);
+
+    LiftType getType();
 }
