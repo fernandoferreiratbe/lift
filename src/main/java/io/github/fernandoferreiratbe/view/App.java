@@ -40,10 +40,10 @@ public class App {
                     System.out.println("** Which floor would you like to go? **");
                     floorNumber = scanner.nextInt();
 
-                    if (floorNumber < 0 || floorNumber > 30) {
+                    if (floorNumber < 1 || floorNumber > 30) {
                         System.out.println("Invalid floor. Choose another one.");
                     }
-                } while (floorNumber < 0 ||  floorNumber > 30);
+                } while (floorNumber < 1 ||  floorNumber > 30);
 
                 do {
                     System.out.println("** How many people are going to this floor? **");
@@ -64,9 +64,9 @@ public class App {
             building.go();
 
             System.out.println("Lift is on the Ground Floor.");
-        } catch (IllegalBuildingOperationException e) {
+        } catch (BuildingRuntimeException | IllegalBuildingOperationException e) {
             System.out.println("Occurs the following problem:  " + e.getMessage());
-            System.out.println("So sorry for that. Please, call lift again.");
+            System.out.println("Please, call lift again.");
         }
     }
 

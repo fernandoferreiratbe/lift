@@ -121,7 +121,7 @@ public abstract class Lift implements ILift {
                         App.talkToUser("Stopping " + this.getType().name() + " Lift at floor " + buildingFloor.getFloor());
                         this.setLiftMovementAs(LiftMovementStatus.STOPPED);
 
-                        App.talkToUser("Open the door");
+                        App.talkToUser("Opening the door");
                         this.openTheDoor();
 
                         App.talkToUser("Get out " + floorToGo.getPeopleOnThisFloor() + " from lift.");
