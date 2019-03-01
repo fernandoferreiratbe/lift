@@ -20,7 +20,7 @@ public class FreightLift extends Lift {
 
     @Override
     public void go() {
-        System.out.println("Social Lift is going...");
+        System.out.println("Freight Lift is going...");
     }
 
     @Override
