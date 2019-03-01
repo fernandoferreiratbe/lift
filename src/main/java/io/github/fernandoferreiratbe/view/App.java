@@ -12,6 +12,8 @@ public class App {
     public static void main( String[] args ) throws BuildingRuntimeException {
         Scanner scanner = new Scanner(System.in);
         Integer option;
+        Integer floorNumber;
+        Integer people;
 
         System.out.println("****************************************");
         System.out.println("**     Welcome to the Solar Tower     **");
@@ -22,6 +24,9 @@ public class App {
         try {
             do {
                 option = scanner.nextInt();
+                if (option != 1 && option != 2) {
+                    System.out.println("Invalid lift option. Type another one.");
+                }
             } while(!option.equals(1) && !option.equals(2));
 
             Building building = new Building();
@@ -30,11 +35,23 @@ public class App {
             building.callLift(liftType, LiftDirection.UP);
 
             do {
-                System.out.println("** Which floor would you like to go? **");
-                Integer floorNumber = scanner.nextInt();
+                do {
+                    System.out.println("** Which floor would you like to go? **");
+                    floorNumber = scanner.nextInt();
 
-                System.out.println("** How many people are going to this floor? **");
-                Integer people = scanner.nextInt();
+                    if (floorNumber < 0 || floorNumber > 30) {
+                        System.out.println("Invalid floor. Choose another one.");
+                    }
+                } while (floorNumber < 0 ||  floorNumber > 30);
+
+                do {
+                    System.out.println("** How many people are going to this floor? **");
+                    people = scanner.nextInt();
+
+                    if (people < 1) {
+                        System.out.println("Invalid number of people. Type another one.");
+                    }
+                } while (people < 1);
 
                 building.setFloorToGo(floorNumber, people);
             } while (App.isThereAnyoneElse(scanner));
