@@ -1,8 +1,5 @@
 package io.github.fernandoferreiratbe.model;
 
-import io.github.fernandoferreiratbe.controller.Building;
-import io.github.fernandoferreiratbe.controller.BuildingRuntimeException;
-import io.github.fernandoferreiratbe.controller.IllegalBuildingOperationException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,16 +10,18 @@ public class LiftTest {
         // Arrange
         Lift lift;
         LiftState liftState;
+        int GROUND_FLOOR = 0;
+        int PEOPLE_ON_THE_LIFT = 0;
 
         // Action
         lift = new LiftFactory().getLift(LiftType.SOCIAL);
         liftState = lift.getState();
 
         // Assert
-        Assert.assertTrue(liftState.getDoorState().equals(DoorState.OPEN));
-        Assert.assertTrue(liftState.getCurrentFloor().getFloor() == 0);
-        Assert.assertTrue(liftState.getPeopleOnTheLift() == 0);
-        Assert.assertTrue(!liftState.isTheLiftInMovement());
+        Assert.assertEquals(liftState.getDoorState(), DoorState.OPEN);
+        Assert.assertEquals(liftState.getCurrentFloor().getFloor(), GROUND_FLOOR);
+        Assert.assertEquals(liftState.getPeopleOnTheLift(), PEOPLE_ON_THE_LIFT);
+        Assert.assertEquals(liftState.getLiftMovementStatus(), LiftMovementStatus.STOPPED);
     }
 
     @Test
@@ -78,6 +77,4 @@ public class LiftTest {
             e.printStackTrace();
         }
     }
-
-    // TODO Checar se é necessário criar teste para validar pessoas e pisos negativos?
 }
