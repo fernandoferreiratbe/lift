@@ -38,9 +38,21 @@ public class SocialLift extends Lift {
 
                     App.talkToUser("Get out " + floorToGo.getPeopleOnThisFloor() + " from lift.");
                     this.setNextBuildingFloorToVisit(this.nextBuildingFloorToVisit + 1);
+
+                    App.talkToUser("Closing the door.");
+                    super.closeTheDoor();
+
+                    App.talkToUser("Social Lift is going...");
+                    this.getState().setLiftInMovement(true);
                     break;
                 }
             }
+        }
+
+        App.talkToUser("Coming back to ground floor...");
+
+        for (int i = --this.nextBuildingFloorToVisit; i >= 0; i--) {
+            App.talkToUser("FLOOR [ " + i + " ]");
         }
     }
 
