@@ -10,7 +10,7 @@ public interface ILift {
 
     void setDirection(LiftDirection liftDirection) throws IllegalLiftOperationException;
 
-    void go();
+    void go() throws IllegalLiftStateException;
 
     LiftState getState();
 
