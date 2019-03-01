@@ -4,12 +4,12 @@ public class LiftState {
     private Floor currentFloor;
     private DoorState doorState;
     private int peopleOnTheLift;
-    private boolean isTheLiftInMovement;
+    private LiftMovementStatus liftMovementStatus;
 
-    public LiftState(Floor currentFloor, DoorState doorState, boolean isTheLiftInMovement) {
+    public LiftState(Floor currentFloor, DoorState doorState, LiftMovementStatus liftMovementStatus) {
         this.setCurrentFloor(currentFloor);
         this.setDoorState(doorState);
-        this.setLiftInMovement(isTheLiftInMovement);
+        this.setLiftMovementAs(liftMovementStatus);
     }
 
     public Floor getCurrentFloor() {
@@ -28,19 +28,19 @@ public class LiftState {
         this.doorState = doorState;
     }
 
-    public boolean isTheLiftInMovement() {
-        return this.isTheLiftInMovement;
-    }
-
-    public void setLiftInMovement(boolean liftInMovement) {
-        this.isTheLiftInMovement = liftInMovement;
-    }
-
     public int getPeopleOnTheLift() {
         return this.peopleOnTheLift;
     }
 
     public void setPeopleOnTheLift(int peopleOnTheLift) {
         this.peopleOnTheLift = peopleOnTheLift;
+    }
+
+    public void setLiftMovementAs(LiftMovementStatus liftMovementStatus) {
+        this.liftMovementStatus = liftMovementStatus;
+    }
+
+    public LiftMovementStatus getLiftMovementStatus() {
+        return this.liftMovementStatus;
     }
 }
