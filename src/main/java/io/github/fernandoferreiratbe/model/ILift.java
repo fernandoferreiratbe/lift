@@ -21,4 +21,10 @@ public interface ILift {
     void closeTheDoor();
 
     void openTheDoor();
+
+    void clearFloorsToGoHistory();
+
+    void setLiftMovementAs(LiftMovementStatus liftMovement);
+
+    LiftMovementStatus getLiftMovementStatus();
 }
