@@ -34,13 +34,8 @@ public class Building {
     }
 
     public void go() throws BuildingRuntimeException {
-        App.talkToUser("Closing the door.");
-        this.lift.closeTheDoor();
-
         try {
-            if (this.lift.isReadyToGo()) {
-                this.lift.go();
-            }
+            this.lift.go();
         } catch (IllegalLiftStateException e) {
             throw new BuildingRuntimeException(e.getMessage());
         }
