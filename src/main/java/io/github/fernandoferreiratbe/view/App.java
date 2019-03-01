@@ -60,4 +60,13 @@ public class App {
 
         return response.toUpperCase().equals("Y");
     }
+
+    public static void talkToUser(String message) {
+        System.out.println(message);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
