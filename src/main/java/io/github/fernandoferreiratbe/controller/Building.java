@@ -1,6 +1,7 @@
 package io.github.fernandoferreiratbe.controller;
 
 import io.github.fernandoferreiratbe.model.*;
+import io.github.fernandoferreiratbe.view.App;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,10 @@ public class Building {
         } catch (IllegalLiftOperationException e) {
             throw new IllegalBuildingOperationException(e.getMessage());
         }
+
         this.defineBuildingFloors();
     }
-    
+
     public void setFloorToGo(int number, int howManyPeople) throws BuildingRuntimeException {
         if (this.lift == null) {
             throw new BuildingRuntimeException("Please call lift before.");
@@ -32,6 +34,7 @@ public class Building {
     }
 
     public void go() throws BuildingRuntimeException {
+        App.talkToUser("Closing the door.");
         this.lift.closeTheDoor();
 
         try {
